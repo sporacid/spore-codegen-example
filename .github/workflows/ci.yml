@@ -19,3 +19,5 @@ jobs:
         run: cmake -B.cmake -G 'Ninja'
       - name: Build CMake Project
         run: cmake --build .cmake --config Release
+      - name: Run Project Binary
+        run: .cmake/spore.codegen.example
