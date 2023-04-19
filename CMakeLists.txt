@@ -31,5 +31,4 @@ target_include_directories(
 
 spore_codegen(
   ${PROJECT_NAME}
-  REFORMAT
 )
