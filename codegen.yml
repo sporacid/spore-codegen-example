@@ -1,0 +1,15 @@
+version: 1
+stages:
+  - name: headers
+    directory: include
+    files: "**/*.hpp"
+    steps:
+      - name: generated
+        directory: include
+        templates:
+          - templates/generated.hpp.inja
+          - templates/generated.inl.inja
+        condition:
+          type: attribute
+          value:
+            enabled: true
