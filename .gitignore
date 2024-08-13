@@ -1,14 +1,14 @@
-# Codegen files
-.codegen/
-
 # CLion files
 .idea/
 cmake-build-debug/
 cmake-build-release/
 
 # VScode files
-.vscode/
+.vscode/ipch/
 build/
+
+# Visual Studio Files
+.vs/
 
 # Default excluded extensions
 *.bak/
@@ -72,6 +72,16 @@ dkms.conf
 
 # CMake files
 .cmake/
+CMakeUserPresets.json
+
+# Archives
+*.zip
+
+# Renderdoc files
+.capture/
+
+# ImGUI files
+imgui.ini
 
 # Codegen files
 .codegen/

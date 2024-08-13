@@ -1,0 +1,44 @@
+#pragma once
+
+#include "type_traits.hpp"
+
+{% for class in classes %}
+    {% if truthy(class.attributes, "enabled") and not class.nested %}
+        {% if truthy(class.scope) %}
+            namespace {{ class.scope }}
+            {
+        {% endif %} {# #}
+        {% if class.is_template %}
+            template < {# #}
+                {% for template_param in class.template_params %}
+                    {{ template_param.type }} {{ template_param.name }} {% if not loop.is_last %}, {% endif %}
+                {% endfor %}
+            > {# #}
+        {% endif %}
+        {{ class.type }} {{ class.name }};
+        {% if truthy(class.scope) %}
+            }
+
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+namespace spore::codegen::example
+{
+    {% for class in classes %}
+        {% if truthy(class.attributes, "enabled") %}
+            template < {# #}
+                {% if class.is_template %}
+                        {% for template_param in class.template_params %}
+                            {{ template_param.type }} {{ template_param.name }} {% if not loop.is_last %}, {% endif %}
+                        {% endfor %}
+                {% endif %}
+            > {# #}
+            struct type_traits<{{ class.full_name }}>
+            {
+                static constexpr bool enabled = true;
+            };
+
+        {% endif %}
+    {% endfor %}
+}

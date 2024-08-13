@@ -11,13 +11,30 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Setup Dependencies
+      - name: Install Dependencies
         run: |
-          sudo apt-get -qq update && 
-          sudo apt-get install -y llvm clang libclang-dev libtbb-dev ninja-build
-      - name: Configure CMake Project
-        run: cmake -B.cmake -G 'Ninja'
-      - name: Build CMake Project
-        run: cmake --build .cmake --config Release
+          sudo apt-get -qq update &&
+          sudo apt-get install -y build-essential libtbb-dev ninja-build
+      - name: Install LLVM
+        uses: KyleMayes/install-llvm-action@v2
+        with:
+          version: 17.0
+          env: true
+      - name: Export LLVM Environment
+        run: |
+          echo "LLVM_DIR=${{ env.LLVM_PATH }}" >> $GITHUB_ENV &&
+          echo "CXXFLAGS=-isystem${{ env.LLVM_PATH }}/lib/clang/17/include" >> $GITHUB_ENV
+      - name: Install CMake
+        uses: lukka/get-cmake@latest
+      - name: Install Vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 'a74164519874e4671e9e496444148df1d7f5006c'
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'ninja-vcpkg'
+          buildPreset: 'ninja-vcpkg-release'
+          testPreset: 'ninja-vcpkg-test-release'
       - name: Run Project Binary
-        run: .cmake/spore.codegen.example
+        run: .cmake/ninja-vcpkg/spore-codegen-example
