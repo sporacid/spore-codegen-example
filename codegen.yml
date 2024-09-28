@@ -1,11 +1,13 @@
 version: 1
 stages:
   - name: headers
+    parser: cpp
     directory: include
-    files: "**/*.hpp"
+    files:
+      - "**/*.hpp"
     steps:
-      - name: generated
-        directory: include
+      - name: generated headers
+        directory: .codegen/include
         templates:
           - templates/generated.hpp.inja
           - templates/generated.inl.inja
