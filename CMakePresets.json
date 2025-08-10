@@ -14,7 +14,7 @@
       "generator": "Ninja",
       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
       "environment": {
-        "VCPKG_KEEP_ENV_VARS": "LLVM_DIR"
+        "VCPKG_KEEP_ENV_VARS": "PATH"
       }
     }
   ],
