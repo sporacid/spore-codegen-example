@@ -24,11 +24,11 @@ jobs:
           sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-20 100 &&
           echo /usr/lib/llvm-20 >> $GITHUB_PATH
       - name: Install CMake
-        uses: lukka/get-cmake@latest
+        uses: lukka/get-cmake@v3.31.6
       - name: Install Vcpkg
         uses: lukka/run-vcpkg@v11
         with:
-          vcpkgGitCommitId: 'a74164519874e4671e9e496444148df1d7f5006c'
+          vcpkgGitCommitId: 'd5ec528843d29e3a52d745a64b469f810b2cedbf'
       - name: Run CMake
         uses: lukka/run-cmake@v10
         with:
