@@ -23,4 +23,5 @@ spore_codegen(
   ${PROJECT_NAME}
   BIN_NAME spore::spore-codegen
   CACHE .codegen/cache.yml
+  REFORMAT
 )
